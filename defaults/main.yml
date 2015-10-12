@@ -2,6 +2,7 @@
 # defaults file for ansible-kvm
 config_kvm_users: false  #defines if kvm_users should be added to libvirtd for managing KVM
 config_nfs_mounts: false  #defines if NFS mountpoints should be mounted from nfs_mounts
+config_nfs_permissions: false  #defines if nfs mount permissions should be set
 kvm_users:
   - remote
 nfs_mounts:

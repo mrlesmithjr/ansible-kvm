@@ -11,3 +11,4 @@
 - name: nfs | configuring NFS permissions on mountpoints
   file: path={{ item.mountpoint }} owner=root group=root mode=0755 state=directory recurse=yes
   with_items: nfs_mounts
+  when: config_nfs_permissions is defined and config_nfs_permissions
