@@ -1,5 +1,4 @@
 ---
 # Install galaxy roles
-- src: mrlesmithjr.config-interfaces
 - src: mrlesmithjr.openvswitch
 - src: mrlesmithjr.kvm
