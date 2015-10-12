@@ -31,6 +31,25 @@ Define variables for each of the additional ansible roles installed as requireme
 mrlesmithjr.config-interfaces
 mrlesmithjr.openvswitch
 
+mrlesmithjr.kvm vars to define.
+````
+---
+# defaults file for ansible-kvm
+config_kvm_users: false  #defines if kvm_users should be added to libvirtd for managing KVM
+config_nfs_mounts: false  #defines if NFS mountpoints should be mounted from nfs_mounts
+kvm_users:
+  - remote
+nfs_mounts:
+  - server: 10.0.127.50
+    export: /volumes/HD-Pool/kvm/NFS
+    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mountpoint: /mnt/kvm
+  - server: 10.0.127.50
+    export: /volumes/HD-Pool/builds
+    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mountpoint: /mnt/builds
+````
+
 mrlesmithjr.config-interfaces vars to define.
 ````
 ---

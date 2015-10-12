@@ -8,3 +8,13 @@
 - include: config_kvm.yml
   tags:
     - config_kvm
+
+- include: nfs.yml
+  tags:
+    - config_nfs
+  when: (config_nfs_mounts is defined and config_nfs_mounts) and nfs_mounts is defined
+
+- include: users.yml
+  tags:
+    - config_users
+  when: (config_kvm_users is defined and config_kvm_users) and kvm_users is defined
