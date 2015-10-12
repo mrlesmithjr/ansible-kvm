@@ -42,11 +42,11 @@ kvm_users:
 nfs_mounts:
   - server: 10.0.127.50
     export: /volumes/HD-Pool/kvm/NFS
-    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mount_options: hard,intr,nfsvers=3,tcp,bg,_netdev,auto,nolock
     mountpoint: /mnt/kvm
   - server: 10.0.127.50
     export: /volumes/HD-Pool/builds
-    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mount_options: hard,intr,nfsvers=3,tcp,bg,_netdev,auto,nolock
     mountpoint: /mnt/builds
 ````
 
