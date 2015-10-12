@@ -64,6 +64,9 @@ interfaces: [] #define interfaces to configure...define in host_vars/host...unle
 #    netmask:
 #    netmask_cidr:
 #    network:
+#    wireless_network: false  #defines if the interface is a wireless interface...not working so keep false or not defined
+#    wpa_ssid: wireless  #defines the wireless SSID to connect to
+#    wpa_psk: wpapassword  #defines the wireless key
 #  - name: eth1
 #    address:
 #    configure:
