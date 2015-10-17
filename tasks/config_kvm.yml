@@ -30,3 +30,9 @@
     - /etc/apparmor.d/usr.sbin.libvirtd
     - /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
   when: libvirt_apparmor_disabled.changed
+
+- name: config_kvm | enabling libvirtd syslog
+  lineinfile: dest=/etc/libvirt/libvirtd.conf regexp="^#log_outputs=\"3:syslog:libvirtd\"" line="log_outputs=\"3:syslog:libvirtd\"" state=present
+  notify:
+    - restart kvm
+  when: enable_libvirtd_syslog is defined and enable_libvirtd_syslog
