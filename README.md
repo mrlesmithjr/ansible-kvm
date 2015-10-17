@@ -7,13 +7,11 @@ Requirements
 ------------
 
 Install and configure the additional roles below.
-mrlesmithjr.config-interfaces
 mrlesmithjr.openvswitch
 
 ##### Install every role required by running the following.
 
 ````
-ansible-galaxy install mrlesmithjr.config-interfaces
 ansible-galaxy install mrlesmithjr.openvswitch
 ansible-galaxy install mrlemsithjr.kvm
 ````
@@ -28,7 +26,6 @@ Role Variables
 --------------
 
 Define variables for each of the additional ansible roles installed as requirements.
-mrlesmithjr.config-interfaces
 mrlesmithjr.openvswitch
 
 mrlesmithjr.kvm vars to define.
@@ -42,52 +39,45 @@ kvm_users:
 nfs_mounts:
   - server: 10.0.127.50
     export: /volumes/HD-Pool/kvm/NFS
-    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mount_options: hard,intr,nfsvers=3,tcp,bg,_netdev,auto,nolock
     mountpoint: /mnt/kvm
   - server: 10.0.127.50
     export: /volumes/HD-Pool/builds
-    mount_options: hard,intr,nfsver=3,tcp,bg,_netdev,auto,nolock
+    mount_options: hard,intr,nfsvers=3,tcp,bg,_netdev,auto,nolock
     mountpoint: /mnt/builds
-````
-
-mrlesmithjr.config-interfaces vars to define.
-````
----
-# defaults file for ansible-config-interfaces
-config_interfaces: false  #defines if interfaces should be configured...define in host_vars/host
-interfaces: [] #define interfaces to configure...define in host_vars/host...unless setting all interfaces for every host to dhcp for example.
-#  - name: eth0
-#    address:
-#    configure: true
-#    gateway:
-#    method: dhcp
-#    netmask:
-#    netmask_cidr:
-#    network:
-#  - name: eth1
-#    address:
-#    configure:
-#    gateway:
-#    method:
-#    netmask:
-#    netmask_cidr: 24
-#    network:
-#  - name: enp0s3
-#    address: 192.168.1.100
-#    configure: true
-#    gateway: 192.168.1.1
-#    method: static
-#    netmask: 255.255.255.0
-#    netmask_cidr: 24
-#    network: 192.168.1.0
-dns_nameservers: '{{ pri_dns }} {{ sec_dns }}'  #defines all dns servers to configure...define here or globally in group_vars/all
-dns_search: '{{ pri_domain_name }}'  #defines your global dns suffix search...define here or globally in group_vars/all
-pri_dns:  #defines primary dns server...define here or globally in group_vars/all
-sec_dns:  #defines secondary dns server...define here or globally in group_vars/all
 ````
 
 mrlesmithjr.openvswitch vars to define.
 ````
+---
+# defaults file for ansible-openvswitch
+add_repos: false  #defines if apt repos should be added for obtaining newer code...only for testing.
+apt_repos:
+  - ppa:project-calico/kilo  #openstack kilo repo
+  - ppa:tomeichhorn/ovs  #openvswitch repo
+interfaces:  #define interfaces here to be configured that are not part of ovs_bridges
+  - name: eth0
+    address:
+    configure: true
+    gateway:
+    method: dhcp
+    netmask:
+    netmask_cidr:
+    network:
+    wireless_network: false
+    wpa_ssid:
+    wpa_psk:
+  - name: wlan0
+    address:
+    configure: false
+    gateway:
+    method: dhcp
+    netmask:
+    netmask_cidr:
+    network:
+    wireless_network: true
+    wpa_ssid: wirelessssid
+    wpa_psk: wirelesskey
 ovs_bridges:
   - name: ext-br  #defines the name of the ovs bridge to create
     add_interfaces: true
@@ -114,13 +104,13 @@ ovs_bridges:
     address: 192.168.203.69
     netmask: 255.255.255.0
 #    gateway: 172.16.24.1
+uninstall: false  #defines is OVS should be uninstalled and OVS Bridges destroyed
 ````
 
 Dependencies
 ------------
 
 Additionally to this role you SHOULD use the following additional roles from Ansible Galaxy
-mrlesmithjr.config-interfaces
 mrlesmithjr.openvswitch
 
 requirements.yml includes all of the additional roles to install
@@ -130,10 +120,8 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: mrlesmithjr.config-interfaces }
          - { role: mrlesmithjr.openvswitch }
          - { role: mrlesmithjr.kvm }
-
 
 License
 -------
