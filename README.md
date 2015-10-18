@@ -12,6 +12,7 @@ mrlesmithjr.openvswitch
 ##### Install every role required by running the following.
 
 ````
+ansible-galaxy install mrlesmithjr.config-interfaces
 ansible-galaxy install mrlesmithjr.openvswitch
 ansible-galaxy install mrlemsithjr.kvm
 ````
@@ -26,16 +27,37 @@ Role Variables
 --------------
 
 Define variables for each of the additional ansible roles installed as requirements.
+mrlesmithjr.config-interfaces
 mrlesmithjr.openvswitch
 
 mrlesmithjr.kvm vars to define.
 ````
 ---
 # defaults file for ansible-kvm
+allow_root_ssh: false  #defines if ssh should be configured to allow root logins...mainly for managing KVM/Libvirt remotely using virt-manager or other.
+config_kvm: false  #defines if kvm/libvirt should be configured
 config_kvm_users: false  #defines if kvm_users should be added to libvirtd for managing KVM
+config_kvm_virtual_networks: false  #defines if kvm virtual networks should be configured...if set to true ensure that your underlying bridges have been created...using mrlesmithjr.config-interfaces role from Ansible Galaxy.
 config_nfs_mounts: false  #defines if NFS mountpoints should be mounted from nfs_mounts
+config_nfs_permissions: false  #defines if nfs mountpoints should have permissions set or not...this defaults to root
+enable_libvirtd_syslog: false
+config_nfs_permissions: false  #defines if nfs mount permissions should be set
+enable_kvm_mdns: false  #defines if libvirt should be advertised over mDNS - Avahi...default is false.
+enable_kvm_tcp: false  #defines if unencrypted tcp connections are desired...default is false
+enable_kvm_tls: true  #defines if remote tls connections are desired...default is true.
 kvm_users:
   - remote
+kvm_virtual_networks:
+  - name: DMZ_ORANGE_VLAN100
+    mode: bridge
+    bridge_name: vmbr100
+    autostart: true
+    state: active  #options are active, inactive, present and absent
+  - name: Green_Servers_VLAN101
+    mode: bridge
+    bridge_name: vmbr101
+    autostart: true
+    state: active
 nfs_mounts:
   - server: 10.0.127.50
     export: /volumes/HD-Pool/kvm/NFS
@@ -47,7 +69,7 @@ nfs_mounts:
     mountpoint: /mnt/builds
 ````
 
-mrlesmithjr.openvswitch vars to define.
+mrlesmithjr.openvswitch vars to define. Only if openvswitch is desired.
 ````
 ---
 # defaults file for ansible-openvswitch
@@ -120,6 +142,7 @@ Example Playbook
 
     - hosts: servers
       roles:
+         - { role: mrlesmithjr.config-interfaces }
          - { role: mrlesmithjr.openvswitch }
          - { role: mrlesmithjr.kvm }
 
