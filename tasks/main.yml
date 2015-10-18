@@ -28,4 +28,4 @@
 - include: config_virtual_networks.yml
   tags:
     - config_virtual_networks
-  when: (config_virtual_networks is defined and config_virtual_networks) and kvm_virtual_networks is defined
+  when: (config_kvm_virtual_networks is defined and config_kvm_virtual_networks) and kvm_virtual_networks is defined
