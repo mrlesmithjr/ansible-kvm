@@ -1,19 +1,14 @@
 ---
 - name: config_kvm | configuring kvm
-  lineinfile: dest=/etc/libvirt/libvirtd.conf regexp="^#?{{ item }}" line="{{ item }}" state=present
+  template: src=etc/libvirt/libvirtd.conf.j2 dest=/etc/libvirt/libvirtd.conf owner=root group=root mode=0644
   notify:
     - restart kvm
-  with_items:
-    - listen_tls = 0
-    - listen_tcp = 1
-    - 'tcp_port = \"16059\"'
-    - mdns_adv = 0
-    - 'auth_tcp = \"none\"'
 
 - name: config_kvm | configuring kvm
   replace: dest=/etc/default/libvirt-bin regexp="^libvirtd_opts=\"-d\"" replace="libvirtd_opts=\"-d -l\""
   notify:
     - restart kvm
+  when: enable_kvm_tcp is defined and enable_kvm_tcp
 
 - name: config_kvm | disabling apparmor profiles for libvirt
   file: src={{ item.src }} dest={{ item.dest }} state=link
@@ -30,9 +25,3 @@
     - /etc/apparmor.d/usr.sbin.libvirtd
     - /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
   when: libvirt_apparmor_disabled.changed
-
-- name: config_kvm | enabling libvirtd syslog
-  lineinfile: dest=/etc/libvirt/libvirtd.conf regexp="^#log_outputs=\"3:syslog:libvirtd\"" line="log_outputs=\"3:syslog:libvirtd\"" state=present
-  notify:
-    - restart kvm
-  when: enable_libvirtd_syslog is defined and enable_libvirtd_syslog
