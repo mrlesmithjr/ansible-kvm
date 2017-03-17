@@ -40,9 +40,6 @@ config_nfs_mounts: false
 # this defaults to root
 config_nfs_permissions: false
 
-# Defines if nfs mount permissions should be set
-config_nfs_permissions: false
-
 # Defines if libvirt should be advertised over mDNS - Avahi
 # default is false.
 enable_kvm_mdns: false
@@ -100,6 +97,7 @@ nfs_mounts:
 Dependencies
 ------------
 
+None
 
 Example Playbook
 ----------------
