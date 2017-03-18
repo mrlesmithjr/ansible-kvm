@@ -3,6 +3,7 @@
   command: egrep -c '(vmx|svm)' /proc/cpuinfo
   register: hw_check
   always_run: yes
+  changed_when: false
 
 - name: hw_virtualization_check | fail if hardware virtualization not supported
   fail: msg="Hardware Virtualization Not Supported on this platform!!!!"
