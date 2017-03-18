@@ -2,7 +2,7 @@
 - name: hw_virtualization_check | checking if hardware virtualization is supported
   command: egrep -c '(vmx|svm)' /proc/cpuinfo
   register: hw_check
-  always_run: yes
+  check_mode: no
   changed_when: false
 
 - name: hw_virtualization_check | fail if hardware virtualization not supported
