@@ -5,6 +5,14 @@
     state: "present"
   with_items: '{{ kvm_debian_packages }}'
 
+- name: debian | Installing ifenslave
+  apt:
+    name: "ifenslave"
+    state: "present"
+  when: >
+        ansible_distribution == "Ubuntu" and
+        ansible_distribution_version < '16.04'
+
 - name: debian | Installing ifupdown2
   apt:
     name: "ifupdown2"

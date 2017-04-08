@@ -35,7 +35,6 @@ kvm_config_virtual_networks: false
 
 kvm_debian_packages:
   - 'bridge-utils'
-  - 'ifenslave'
   - 'libvirt-bin'
   - 'lldpd'
   - 'python-libvirt'
