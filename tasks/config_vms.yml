@@ -25,7 +25,7 @@
   with_subelements:
     - '{{ kvm_vms }}'
     - disks
-  when: item.host is not defined
+  when: item[0].host is not defined
 
 - name: config_vms | Creating VM Disk(s)
   qemu_img:
@@ -36,8 +36,8 @@
     - '{{ kvm_vms }}'
     - disks
   when: >
-        item.host is defined and
-        inventory_hostname == item.host
+        item[0].host is defined and
+        inventory_hostname == item[0].host
 
 - name: config_vms | Setting VM State
   virt:
