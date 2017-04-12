@@ -91,15 +91,15 @@ kvm_vms:
       - 'network'
       - 'hd'
       # - 'cdrom'
-    # Define disks in GB
+    # Define disks in MB
     disks:
         # ide, scsi, virtio, xen, usb, sata or sd
       - disk_driver: 'virtio'
         name: 'test_vm_1'
-        size: '36'
+        size: '36864'
       - disk_driver: 'virtio'
         name: 'test_vm_2'
-        size: '50'
+        size: '51200'
     # Define a specific host where the VM should reside..Match inventory_hostname
     # host: 'kvm01'
     # Define memory in MB
