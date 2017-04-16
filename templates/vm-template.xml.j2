@@ -17,7 +17,7 @@
 {% for hd in item.disks %}
     <disk type='file' device='disk'>
       <driver name='qemu' type='{{ kvm_images_format_type }}'/>
-      <source file='{{ kvm_images_path }}/{{ item.name }}.{{ loop.index }}.{{ kvm_images_format_type }}'/>
+      <source file='{{ kvm_images_path }}/{{ hd.name }}.{{ kvm_images_format_type }}'/>
 {%   if hd.disk_driver|lower == 'virtio' %}
       <target dev='vd{{ "abcdefghijklmnopqrstuvwxyz"[loop.index0] }}' bus='{{ hd.disk_driver }}'/>
 {%   elif hd.disk_driver|lower == 'sata' or hd.disk_driver|lower == 'scsi' or hd.disk_driver|lower == 'sd' %}

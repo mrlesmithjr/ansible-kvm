@@ -112,8 +112,10 @@ kvm_vms:
     disks:
         # ide, scsi, virtio, xen, usb, sata or sd
       - disk_driver: 'virtio'
+        name: 'test_vm.1'
         size: '36864'
       - disk_driver: 'virtio'
+        name: 'test_vm.2'
         size: '51200'
     # Define a specific host where the VM should reside..Match inventory_hostname
     # host: 'kvm01'
