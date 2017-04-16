@@ -1,6 +1,8 @@
 ---
 # tasks file for ansible-kvm
 - include: hw_virtualization_check.yml
+  tags:
+    - config_vms
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
