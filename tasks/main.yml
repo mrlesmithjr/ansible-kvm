@@ -36,6 +36,8 @@
           kvm_virtual_networks is defined
 
 - include: config_vms.yml
+  tags:
+    - config_vms
   when: >
         (kvm_manage_vms is defined and
           kvm_manage_vms) and
