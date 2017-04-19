@@ -3,6 +3,11 @@ Role Name
 
 An [Ansible] role to install [KVM]
 
+Build Status
+------------
+
+[![Build Status](https://travis-ci.org/mrlesmithjr/ansible-kvm.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-kvm)
+
 Requirements
 ------------
 
