@@ -3,7 +3,7 @@
   virt_net:
     command: "define"
     name: "{{ item.name }}"
-    xml: "{{ lookup('template', 'lookup/pool/bridge.xml.j2') }}"
+    xml: "{{ lookup('template', 'files/lookup/pool/bridge.xml.j2') }}"
   register: "kvm_bridges_defined"
   with_items: '{{ kvm_virtual_networks }}'
 
