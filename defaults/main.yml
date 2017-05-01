@@ -91,6 +91,7 @@ kvm_vms:
       - 'network'
       - 'hd'
       # - 'cdrom'
+    graphics: false
     # Define disks in MB
     disks:
         # ide, scsi, virtio, xen, usb, sata or sd
