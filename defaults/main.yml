@@ -32,6 +32,9 @@ kvm_enable_mdns: false
 
 kvm_enable_system_tweaks: false
 
+# Enable apparmor
+kvm_enable_apparmor: true
+
 # Defines if unencrypted tcp connections are desired
 # default is false
 kvm_enable_tcp: false
