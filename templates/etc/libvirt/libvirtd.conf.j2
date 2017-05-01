@@ -88,15 +88,11 @@ mdns_adv = 1
 # without becoming root.
 #
 # This is restricted to 'root' by default.
-<<<<<<< HEAD
 {% if ansible_distribution == "Ubuntu" and ansible_distribution_version >= "16.04" %}
 unix_sock_group = "libvirt"
 {% else %}
 unix_sock_group = "libvirtd"
 {% endif %}
-=======
-unix_sock_group = "libvirt"
->>>>>>> 24456a20df2ec69ce51d6e3db7ba0908c387da54
 
 # Set the UNIX socket permissions for the R/O socket. This is used
 # for monitoring VM status only
