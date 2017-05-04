@@ -15,7 +15,7 @@
   </features>
   <devices>
 {% if graphics is defined and graphics == true %}
-    <graphics type='splice' autoport='yes'/>
+    <graphics type='spice' autoport='yes'/>
 {% endif %}
 {% for hd in item.disks %}
     <disk type='file' device='disk'>
