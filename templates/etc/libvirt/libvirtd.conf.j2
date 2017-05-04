@@ -88,7 +88,7 @@ mdns_adv = 1
 # without becoming root.
 #
 # This is restricted to 'root' by default.
-{% if ansible_distribution == "Ubuntu" and ansible_distribution_version >= "16.04" %}
+{% if ansible_distribution == "Ubuntu" and ansible_distribution_version >= "16.10" %}
 unix_sock_group = "libvirt"
 {% else %}
 unix_sock_group = "libvirtd"
