@@ -7,3 +7,4 @@
     state: "present"
   become: true
   with_items: '{{ kvm_users }}'
+  when: not ansible_check_mode
