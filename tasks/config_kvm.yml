@@ -33,6 +33,7 @@
   become: true
   notify:
     - "restart {{ kvm_service_name }}"
+  when: not ansible_check_mode
 
 - name: config_kvm | configuring kvm
   replace:
@@ -44,4 +45,5 @@
     - "restart {{ kvm_service_name }}"
   when: >
         kvm_enable_tcp and
-        ansible_os_family == "Debian"
+        ansible_os_family == "Debian" and
+        not ansible_check_mode
