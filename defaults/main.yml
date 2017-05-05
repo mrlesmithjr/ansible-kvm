@@ -42,7 +42,6 @@ kvm_debian_packages:
   - 'python-libvirt'
   - 'python-lxml'
   - 'qemu-kvm'
-  - 'vlan'
 
 # Disable apparmor
 kvm_disable_apparmor: false
@@ -140,6 +139,17 @@ kvm_ovs_timeout: '5'
 # (notably domainDestroy) can be executed in this pool.
 kvm_prio_workers: '5'
 
+kvm_redhat_packages:
+  - 'bridge-utils'
+  - 'libvirt-client'
+  - 'libvirt-python'
+  - 'libvirt'
+  - 'qemu-img'
+  - 'qemu-kvm'
+  - 'virt-install'
+  - 'virt-manager'
+  - 'virt-viewer'
+
 # I experienced an issue with bridges no longer working on Ubuntu 16.04
 # for some reason. And the following settings below from the link provided
 # solved this issue.
@@ -168,8 +178,7 @@ kvm_unix_sock_dir: '/var/run/libvirt'
 
 # Defines users to add to libvirt group
 kvm_users:
-  - user: 'remote'
-    group: 'libvirtd'
+  - 'remote'
 
 # Define KVM Networks to create
 kvm_virtual_networks: []

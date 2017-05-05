@@ -13,12 +13,12 @@
   register: "_libvirtd_group_found"
   changed_when: false
 
-- name: set_facts | Setting unix_sock_group
+- name: config_kvm | Setting unix_sock_group
   set_fact:
     kvm_unix_sock_group: 'libvirt'
   when: _libvirt_group_found['stdout'] == 'libvirt'
 
-- name: set_facts | Setting unix_sock_group
+- name: config_kvm | Setting unix_sock_group
   set_fact:
     kvm_unix_sock_group: 'libvirtd'
   when: _libvirtd_group_found['stdout'] == 'libvirtd'
@@ -33,7 +33,6 @@
   become: true
   notify:
     - "restart {{ kvm_service_name }}"
-  when: ansible_os_family == "Debian"
 
 - name: config_kvm | configuring kvm
   replace:

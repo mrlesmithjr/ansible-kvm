@@ -4,12 +4,14 @@
   service:
     name: "libvirt-bin"
     state: "restarted"
+    enabled: true
   become: true
 
 - name: restart libvirtd
   service:
     name: "libvirtd"
     state: "restarted"
+    enabled: true
   become: true
 
 - name: restart ssh
