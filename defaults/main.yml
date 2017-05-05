@@ -172,47 +172,47 @@ kvm_users:
     group: 'libvirtd'
 
 # Define KVM Networks to create
-kvm_virtual_networks:
-  - name: 'DMZ_ORANGE_VLAN100'
-    mode: 'bridge'
-    bridge_name: 'vmbr100'
-    autostart: true
-    # active, inactive, present and absent
-    state: active
-  - name: 'Green_Servers_VLAN101'
-    mode: 'bridge'
-    bridge_name: 'vmbr101'
-    autostart: true
-    state: active
+kvm_virtual_networks: []
+  # - name: 'DMZ_ORANGE_VLAN100'
+  #   mode: 'bridge'
+  #   bridge_name: 'vmbr100'
+  #   autostart: true
+  #   # active, inactive, present and absent
+  #   state: active
+  # - name: 'Green_Servers_VLAN101'
+  #   mode: 'bridge'
+  #   bridge_name: 'vmbr101'
+  #   autostart: true
+  #   state: active
 
 # Define VM(s) to create
-kvm_vms:
-  - name: 'test_vm'
-    # Define boot devices in order of preference
-    boot_devices:
-      - 'network'
-      - 'hd'
-      # - 'cdrom'
-    graphics: false
-    # Define disks in MB
-    disks:
-        # ide, scsi, virtio, xen, usb, sata or sd
-      - disk_driver: 'virtio'
-        name: 'test_vm.1'
-        size: '36864'
-      - disk_driver: 'virtio'
-        name: 'test_vm.2'
-        size: '51200'
-    # Define a specific host where the VM should reside..Match inventory_hostname
-    # host: 'kvm01'
-    # Define memory in MB
-    memory: '512'
-    network_interfaces:
-      - source: 'default'
-        network_driver: 'virtio'
-        type: 'network'
-      # - source: 'vmbr102'
-      #   network_driver: 'virtio'
-      #   type: 'bridge'
-    state: 'running'
-    vcpu: '1'
+kvm_vms: []
+  # - name: 'test_vm'
+  #   # Define boot devices in order of preference
+  #   boot_devices:
+  #     - 'network'
+  #     - 'hd'
+  #     # - 'cdrom'
+  #   graphics: false
+  #   # Define disks in MB
+  #   disks:
+  #       # ide, scsi, virtio, xen, usb, sata or sd
+  #     - disk_driver: 'virtio'
+  #       name: 'test_vm.1'
+  #       size: '36864'
+  #     - disk_driver: 'virtio'
+  #       name: 'test_vm.2'
+  #       size: '51200'
+  #   # Define a specific host where the VM should reside..Match inventory_hostname
+  #   # host: 'kvm01'
+  #   # Define memory in MB
+  #   memory: '512'
+  #   network_interfaces:
+  #     - source: 'default'
+  #       network_driver: 'virtio'
+  #       type: 'network'
+  #     # - source: 'vmbr102'
+  #     #   network_driver: 'virtio'
+  #     #   type: 'bridge'
+  #   state: 'running'
+  #   vcpu: '1'
