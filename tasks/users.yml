@@ -2,7 +2,7 @@
 - name: users | adding kvm users
   user:
     name: "{{ item['user'] }}"
-    groups: "{{ item['group'] }}"
+    groups: "{{ kvm_unix_sock_group }}"
     append: yes
     state: "present"
   become: true
