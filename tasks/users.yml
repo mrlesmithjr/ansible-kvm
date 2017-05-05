@@ -1,8 +1,9 @@
 ---
 - name: users | adding kvm users
   user:
-    name: "{{ item }}"
-    groups: "libvirtd"
+    name: "{{ item['user'] }}"
+    groups: "{{ item['group'] }}"
     append: yes
     state: "present"
+  become: true
   with_items: '{{ kvm_users }}'
