@@ -19,12 +19,7 @@ mdns_adv = 1
 #
 # UNIX socket access controls
 #
-{% if (ansible_distribution == "Ubuntu" and ansible_distribution_version >= "16.10") or
-    ansible_distribution == "Debian" %}
-unix_sock_group = "libvirt"
-{% else %}
-unix_sock_group = "libvirtd"
-{% endif %}
+unix_sock_group = "{{ kvm_unix_sock_group }}"
 unix_sock_dir = "{{ kvm_unix_sock_dir }}"
 
 #################################################################
