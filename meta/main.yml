@@ -93,6 +93,8 @@ galaxy_info:
   #  - utopic
   #  - vivid
     - xenial
+    - yakkety
+    - zesty
   #- name: SLES
   #  versions:
   #  - all
