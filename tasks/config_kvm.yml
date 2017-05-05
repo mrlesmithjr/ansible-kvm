@@ -1,4 +1,28 @@
 ---
+# We do this to capture which group was created during install
+# https://github.com/mrlesmithjr/ansible-kvm/pull/2
+- name: config_kvm | Capturing Libvirt Group
+  shell: "getent group libvirt | cut -d: -f1"
+  register: "_libvirt_group_found"
+  changed_when: false
+
+# We do this to capture which group was created during install
+# https://github.com/mrlesmithjr/ansible-kvm/pull/2
+- name: config_kvm | Capturing Libvirt Group
+  shell: "getent group libvirtd | cut -d: -f1"
+  register: "_libvirtd_group_found"
+  changed_when: false
+
+- name: set_facts | Setting unix_sock_group
+  set_fact:
+    kvm_unix_sock_group: 'libvirt'
+  when: _libvirt_group_found['stdout'] == 'libvirt'
+
+- name: set_facts | Setting unix_sock_group
+  set_fact:
+    kvm_unix_sock_group: 'libvirtd'
+  when: _libvirtd_group_found['stdout'] == 'libvirtd'
+
 - name: config_kvm | configuring kvm
   template:
     src: "etc/libvirt/libvirtd.conf.j2"
