@@ -17,14 +17,16 @@
   set_fact:
     kvm_unix_sock_group: 'libvirt'
   when: >
-        _libvirt_group_found['stdout'] == 'libvirt' and
+        (_libvirt_group_found is defined and
+          _libvirt_group_found['stdout'] == 'libvirt') and
         not ansible_check_mode
 
 - name: config_kvm | Setting unix_sock_group
   set_fact:
     kvm_unix_sock_group: 'libvirtd'
   when: >
-        _libvirtd_group_found['stdout'] == 'libvirtd' and
+        (_libvirt_group_found is defined and
+          _libvirtd_group_found['stdout'] == 'libvirtd') and
         not ansible_check_mode
 
 - name: config_kvm | configuring kvm
