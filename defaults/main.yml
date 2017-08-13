@@ -60,6 +60,10 @@ kvm_enable_tls: true
 
 kvm_enable_libvirtd_syslog: false
 
+# Define default disk image cache mode
+## none, writethrough, writeback, directsync, and unsafe
+kvm_images_cache_mode: 'none'
+
 kvm_images_format_type: 'qcow2'
 
 # Defines the path to store VM images
