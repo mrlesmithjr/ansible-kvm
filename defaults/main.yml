@@ -201,6 +201,7 @@ kvm_virtual_networks: []
 # Define VM(s) to create
 kvm_vms: []
   # - name: 'test_vm'
+  #   autostart: true
   #   # Define boot devices in order of preference
   #   boot_devices:
   #     - 'network'
