@@ -64,7 +64,7 @@
 - name: config_vms | Setting autostart status
   virt:
     name: "{{ item['name'] }}"
-    autostart: "{{ item['autostart']|default(False) }}"
+    autostart: "{{ item['autostart']|default(omit) }}"
     state: "{{ item['state'] }}"
   become: true
   with_items: '{{ kvm_vms }}'
@@ -75,7 +75,7 @@
 - name: config_vms | Setting autostart status
   virt:
     name: "{{ item['name'] }}"
-    autostart: "{{ item['autostart']|default(False) }}"
+    autostart: "{{ item['autostart']|default(omit) }}"
     state: "{{ item['state'] }}"
   become: true
   with_items: '{{ kvm_vms }}'
