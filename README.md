@@ -1,15 +1,17 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [ansible-kvm](#ansible-kvm)
-  - [Build Status](#build-status)
-  - [Requirements](#requirements)
-  - [Role Variables](#role-variables)
-  - [Dependencies](#dependencies)
-  - [Example Playbook](#example-playbook)
-  - [License](#license)
-  - [Author Information](#author-information)
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+-   [ansible-kvm](#ansible-kvm)
+    -   [Build Status](#build-status)
+    -   [Requirements](#requirements)
+    -   [Role Variables](#role-variables)
+    -   [Dependencies](#dependencies)
+    -   [Example Playbook](#example-playbook)
+    -   [License](#license)
+    -   [Author Information](#author-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -220,12 +222,25 @@ kvm_users:
 
 # Define KVM Networks to create
 kvm_virtual_networks: []
-  # - name: 'DMZ_ORANGE_VLAN100'
+  # - name: 'ovs-network'
   #   mode: 'bridge'
-  #   bridge_name: 'vmbr100'
+  #   bridge_name: 'ovsbr0'
   #   autostart: true
   #   # active, inactive, present and absent
   #   state: active
+  #   virtualport_type: 'openvswitch'
+  #   vlans:
+  #     - name: 'vlan-101'
+  #       vlan: 101
+  #     - name: 'vlan-102'
+  #       vlan: 102
+  #     - name: 'vlan-201'
+  #       vlan: 201
+  #     - name: 'vlan-all'
+  #       vlan:
+  #         - 101
+  #         - 102
+  #         - 201
   # - name: 'Green_Servers_VLAN101'
   #   mode: 'bridge'
   #   bridge_name: 'vmbr101'
@@ -258,6 +273,7 @@ kvm_vms: []
   #   network_interfaces:
   #     - source: 'default'
   #       network_driver: 'virtio'
+  #       portgroup: 'vlan-102'
   #       type: 'network'
   #     # - source: 'vmbr102'
   #     #   network_driver: 'virtio'

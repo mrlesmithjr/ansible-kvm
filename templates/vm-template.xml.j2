@@ -30,7 +30,11 @@
 {% endfor %}
 {% for int in item.network_interfaces %}
     <interface type='{{ int.type }}'>
+{%   if int['portgroup'] is not defined %}
       <source {{ int.type }}='{{ int.source }}'/>
+{%   elif int['portgroup'] is defined %}
+      <source {{ int.type }}='{{ int.source }}' portgroup='{{ int['portgroup'] }}'/>
+{%   endif %}
       <model type='{{ int.network_driver }}'/>
     </interface>
 {% endfor %}
