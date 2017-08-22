@@ -36,10 +36,10 @@
 {% if item['vlans'] is defined %}
 {%   for vl in item['vlans'] %}
   <portgroup name='{{ vl['name'] }}'>
-{%     if vl['vlan']|length == 1 %}
+{%     if not vl['trunk'] %}
     <vlan>
       <tag id='{{ vl['vlan'] }}'/>
-{%     elif vl['vlan']|length > 1 %}
+{%     if vl['trunk'] %}
     <vlan trunk='yes'>
 {%       for vlt in vl['vlan'] %}
       <tag id='{{ vlt }}'/>

@@ -195,12 +195,16 @@ kvm_virtual_networks: []
   #   virtualport_type: 'openvswitch'
   #   vlans:
   #     - name: 'vlan-101'
+  #       trunk: false
   #       vlan: 101
   #     - name: 'vlan-102'
+  #       trunk: false
   #       vlan: 102
   #     - name: 'vlan-201'
+  #       trunk: false
   #       vlan: 201
   #     - name: 'vlan-all'
+  #       trunk: true
   #       vlan:
   #         - 101
   #         - 102
