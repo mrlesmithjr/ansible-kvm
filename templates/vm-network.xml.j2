@@ -39,7 +39,7 @@
 {%     if not vl['trunk'] %}
     <vlan>
       <tag id='{{ vl['vlan'] }}'/>
-{%     if vl['trunk'] %}
+{%     elif vl['trunk'] %}
     <vlan trunk='yes'>
 {%       for vlt in vl['vlan'] %}
       <tag id='{{ vlt }}'/>
