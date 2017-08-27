@@ -65,7 +65,7 @@
   virt:
     name: "{{ item['name'] }}"
     autostart: "{{ item['autostart']|default(omit) }}"
-    state: "{{ item['state'] }}"
+    command: "info"
   become: true
   with_items: '{{ kvm_vms }}'
   when: >
@@ -76,7 +76,7 @@
   virt:
     name: "{{ item['name'] }}"
     autostart: "{{ item['autostart']|default(omit) }}"
-    state: "{{ item['state'] }}"
+    command: "info"
   become: true
   with_items: '{{ kvm_vms }}'
   when: >
