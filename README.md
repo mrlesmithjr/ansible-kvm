@@ -250,6 +250,13 @@ kvm_virtual_networks: []
   #   bridge_name: 'vmbr101'
   #   autostart: true
   #   state: active
+  # - name: 'maas'
+  #   mode: 'bridge'
+  #   bridge_name: 'ovsbr0'
+  #   autostart: true
+  #   state: active
+  #   virtualport_type: 'openvswitch'
+  #   vlan: 193
 
 # Define VM(s) to create
 kvm_vms: []
