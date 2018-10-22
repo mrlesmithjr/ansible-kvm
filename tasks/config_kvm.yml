@@ -53,3 +53,9 @@
         kvm_enable_tcp and
         ansible_os_family == "Debian" and
         not ansible_check_mode
+
+- name: config_kvm | starting libvirt service 
+  service: 
+    name: "{{ kvm_service_name }}"
+    state: started
+    enabled: yes
