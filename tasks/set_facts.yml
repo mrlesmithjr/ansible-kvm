@@ -3,8 +3,8 @@
   set_fact:
     kvm_service_name: 'libvirtd'
   when: >
-        ansible_distribution == "Debian" or
-        ansible_distribution == "CentOS"
+        ansible_os_family == "Debian" or
+        ansible_os_family == "RedHat"
 
 - name: set_facts | Setting Ubuntu Facts
   set_fact:
