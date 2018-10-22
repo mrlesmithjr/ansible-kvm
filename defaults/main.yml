@@ -35,6 +35,11 @@ kvm_config_users: false
 # using mrlesmithjr.config-interfaces role from Ansible Galaxy.
 kvm_config_virtual_networks: false
 
+# Defines if kvm storage pools should be configured
+# if set to true ensure that your underlying filesystems paths are avaialable 
+# using ansible file role
+kvm_config_storage_pools: false
+
 kvm_debian_packages:
   - 'bridge-utils'
   - 'libvirt-bin'
@@ -221,6 +226,18 @@ kvm_virtual_networks: []
   #   state: active
   #   virtualport_type: 'openvswitch'
   #   vlan: 193
+
+# Define KVM Dir type Storage Pools to create
+kvm_storage_pools: []
+ #  - name: VM1
+ #   path: /var/lib/libvirt/filesystems/
+ #   autostart: true
+ #   state: active
+ # - name: VM2
+ #   path: /var/lib/libvirt/lxc
+ #   autostart: true
+ #   state: active
+
 
 # Define VM(s) to create
 kvm_vms: []

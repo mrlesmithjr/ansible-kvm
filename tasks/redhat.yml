@@ -16,4 +16,6 @@
         (ansible_distribution == "Fedora" and
         ansible_distribution_major_version <= '12') or
         (ansible_distribution == "CentOS" and
+        ansible_distribution_major_version <= '6') or
+        (ansible_distribution == "RedHat" and
         ansible_distribution_major_version <= '6')
