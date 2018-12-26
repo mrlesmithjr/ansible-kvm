@@ -2,20 +2,22 @@
 - name: redhat | Installing KVM
   yum:
     name: "{{ item }}"
-    state: "present"
+    state: present
   become: true
-  with_items: '{{ kvm_redhat_packages }}'
+  register: result
+  until: result is successful
+  with_items: "{{ kvm_redhat_packages }}"
   when: ansible_distribution != "Fedora"
 
 - name: redhat | Creating libvirt Group
   group:
-    name: "libvirt"
-    state: "present"
+    name: libvirt
+    state: present
   become: true
   when: >
-        (ansible_distribution == "Fedora" and
-        ansible_distribution_major_version <= '12') or
-        (ansible_distribution == "CentOS" and
-        ansible_distribution_major_version <= '6') or
-        (ansible_distribution == "RedHat" and
-        ansible_distribution_major_version <= '6')
+    (ansible_distribution == "Fedora" and
+    ansible_distribution_major_version <= '12') or
+    (ansible_distribution == "CentOS" and
+    ansible_distribution_major_version <= '6') or
+    (ansible_distribution == "RedHat" and
+    ansible_distribution_major_version <= '6')
