@@ -1,12 +1,11 @@
 ---
 - name: debian | Installing KVM
   apt:
-    name: "{{ item }}"
+    name: "{{ kvm_debian_packages }}"
     state: present
   become: true
   register: result
   until: result is successful
-  with_items: "{{ kvm_debian_packages }}"
 
 - name: debian | Installing Additional Ubuntu Packages
   apt:
