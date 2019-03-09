@@ -20,3 +20,10 @@
     ansible_distribution_major_version <= '6') or
     (ansible_distribution == "RedHat" and
     ansible_distribution_major_version <= '6')
+
+- name: redhat | Ensuring libvirtd Service Is Enabled and Started
+  service:
+    name: libvirtd
+    enabled: true
+    state: started
+  become: true
