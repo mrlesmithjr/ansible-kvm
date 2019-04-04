@@ -251,6 +251,8 @@ kvm_vms:
   #     - network
   #     - hd
   #     # - cdrom
+  #   cdrom:
+  #     source: /path/to/iso
   #   graphics: false
   #   # Define disks in MB
   #   disks:

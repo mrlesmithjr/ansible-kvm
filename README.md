@@ -1,18 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [ansible-kvm](#ansible-kvm)
-  - [Build Status](#build-status)
-  - [Requirements](#requirements)
-  - [Role Variables](#role-variables)
-  - [Dependencies](#dependencies)
-  - [Example Playbook](#example-playbook)
-  - [License](#license)
-  - [Author Information](#author-information)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # ansible-kvm
 
 An [Ansible](https://www.ansible.com) role to install [KVM](https://www.linux-kvm.org/page/Main_Page)
@@ -46,6 +31,37 @@ None
   roles:
     - role: ansible-kvm
   tasks:
+```
+
+## Booting a VM from ISO
+
+You can boot a defined VM up with an ISO by using the following example:
+
+```yaml
+kvm_vms:
+  - name: test_vm
+    autostart: true
+    # Define boot devices in order of preference
+    boot_devices:
+      - cdrom
+      - network
+      - hd
+    cdrom:
+      source: /path/to/iso
+    graphics: false
+    # Define disks in MB
+    disks:
+      - disk_driver: virtio
+        name: test_vm.1
+        size: 36864
+    memory: 512
+    network_interfaces:
+      - source: default
+        network_driver: virtio
+        portgroup: vlan-102
+        type: network
+    state: running
+    vcpu: 1
 ```
 
 ## License

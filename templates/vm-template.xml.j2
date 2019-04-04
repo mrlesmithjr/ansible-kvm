@@ -17,6 +17,17 @@
 {% if graphics is defined and graphics == true %}
     <graphics type='spice' autoport='yes'/>
 {% endif %}
+{% if item['cdrom'] is defined %}
+{%   if item['cdrom']['source'] is defined %}
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='{{ item['cdrom']['source'] }}'/>
+      <target dev='hdc' bus='ide'/>
+      <readonly/>
+      <address type='drive' controller='0' bus='1' unit='0'/>
+    </disk>
+{%   endif %}
+{% endif %}
 {% for hd in item.disks %}
     <disk type='file' device='disk'>
       <driver name='qemu' type='{{ kvm_images_format_type }}' cache='{{ kvm_images_cache_mode }}'/>
