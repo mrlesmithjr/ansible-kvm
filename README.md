@@ -26,18 +26,21 @@ None
 
 ```yaml
 - hosts: kvm_hosts
-  become: true
-  vars:
+  vars: {}
   roles:
     - role: ansible-kvm
-  tasks:
+  tasks: []
 ```
 
 ## Booting a VM from ISO
 
 You can boot a defined VM up with an ISO by using the following example:
 
+> NOTE: Defined in your vars. Also, ensure that the default
+> `kvm_manage_vms: false` is changed to `kvm_manage_vms: true`.
+
 ```yaml
+kvm_manage_vms: true
 kvm_vms:
   - name: test_vm
     autostart: true
