@@ -13,6 +13,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
+        - cosmic
         - trusty
         - xenial
         - yakkety

@@ -40,14 +40,6 @@ kvm_config_virtual_networks: false
 # using ansible file role
 kvm_config_storage_pools: false
 
-kvm_debian_packages:
-  - bridge-utils
-  - libvirt-bin
-  - lldpd
-  - python-libvirt
-  - python-lxml
-  - qemu-kvm
-
 # Disable apparmor
 kvm_disable_apparmor: false
 
