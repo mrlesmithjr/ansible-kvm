@@ -1,33 +1,17 @@
 ---
-# We do this to capture which group was created during install
-# https://github.com/mrlesmithjr/ansible-kvm/pull/2
-- name: config_kvm | Capturing Libvirt Group
-  shell: "getent group libvirt | cut -d: -f1"
-  register: _libvirt_group_found
-  changed_when: false
-  check_mode: no
 
-# We do this to capture which group was created during install
-# https://github.com/mrlesmithjr/ansible-kvm/pull/2
-- name: config_kvm | Capturing Libvirt Group
-  shell: "getent group libvirtd | cut -d: -f1"
-  register: _libvirtd_group_found
-  changed_when: false
-  check_mode: no
+- name: config_kvm | Load all groups
+  getent:
+    database: group
+    split: ':'
+  check_mode: false
 
-- name: config_kvm | Setting unix_sock_group
+- name: config_kvm | Set unix_sock_group
   set_fact:
-    kvm_unix_sock_group: libvirt
-  when: >
-    (_libvirt_group_found is defined and
-      _libvirt_group_found['stdout'] == 'libvirt')
-
-- name: config_kvm | Setting unix_sock_group
-  set_fact:
-    kvm_unix_sock_group: libvirtd
-  when: >
-    (_libvirtd_group_found is defined and
-      _libvirtd_group_found['stdout'] == 'libvirtd')
+    kvm_unix_sock_group: "{{ ('libvirtd' in getent_group) | ternary('libvirtd', 'libvirt') }}"
+  when:
+    - getent_group is defined
+    - "'libvirt' in getent_group or 'libvirtd' in getent_group"
 
 - name: config_kvm | configuring kvm
   template:
@@ -37,8 +21,7 @@
     group: root
     mode: u=rw,g=r,o=r
   become: true
-  notify:
-    - "restart {{ kvm_service_name }}"
+  notify: "restart {{ kvm_service_name }}"
   when: not ansible_check_mode
 
 - name: config_kvm | configuring kvm
@@ -47,9 +30,8 @@
     regexp: '^libvirtd_opts="-d"'
     replace: 'libvirtd_opts="-d -l"'
   become: true
-  notify:
-    - "restart {{ kvm_service_name }}"
-  when: >
-    kvm_enable_tcp and
-    ansible_os_family == "Debian" and
-    not ansible_check_mode
+  notify: "restart {{ kvm_service_name }}"
+  when:
+    - kvm_enable_tcp
+    - ansible_os_family == "Debian"
+    - not ansible_check_mode

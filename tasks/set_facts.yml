@@ -1,10 +1,9 @@
 ---
+
 - name: set_facts | Setting Debian Facts
   set_fact:
     kvm_service_name: libvirtd
-  when: >
-    ansible_distribution == "Debian" or
-    ansible_distribution == "CentOS"
+  when: ansible_distribution in ["Debian", "CentOS"]
 
 - name: set_facts | Setting Ubuntu Facts
   set_fact:
@@ -35,6 +34,6 @@
       - python-libvirt
       - python-lxml
       - qemu-kvm
-  when: >
-    (ansible_distribution == "Ubuntu" and
-    ansible_distribution_version >= "18.10")
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version >= "18.10"

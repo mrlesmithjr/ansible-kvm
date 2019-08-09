@@ -1,39 +1,39 @@
 ---
+
 - name: config_storage_pools | defining storage pools
+  become: true
   virt_pool:
     command: define
     name: "{{ item['name'] }}"
     xml: "{{ lookup('template', 'vm-pool.xml.j2') }}"
   register: kvm_pools_defined
-  become: true
-  with_items: "{{ kvm_storage_pools }}"
+  loop: "{{ kvm_storage_pools }}"
 
 - name: config_virtual networks | setting state of storage pools
-  virt_pool:
-    state: "{{ item['state'] }}"
-    name: "{{ item['name'] }}"
   become: true
-  with_items: "{{ kvm_storage_pools }}"
+  virt_pool:
+    name: "{{ item['name'] }}"
+    state: "{{ item['state'] }}"
   when: item['state'] is defined
+  loop: "{{ kvm_storage_pools }}"
 
 - name: config_storage pools | setting storage pools to autostart
   virt_pool:
-    autostart: yes
+    autostart: true
     name: "{{ item['name'] }}"
   become: true
-  with_items: "{{ kvm_storage_pools }}"
-  when: >
-    (item['autostart'] is defined and
-      item['autostart']) and
-      (item['state'] is defined and
-        item['state'] == "active")
+  when:
+    - item['autostart'] is defined
+    - item['autostart']
+    - (item['state'] | default("")) == "active"
+  loop: "{{ kvm_storage_pools }}"
 
 - name: config_storage pools | setting storage pools to not autostart
   virt_pool:
-    autostart: no
+    autostart: false
     name: "{{ item['name'] }}"
   become: true
-  with_items: "{{ kvm_storage_pools }}"
-  when: >
-    item['autostart'] is defined and
-    not item['autostart']
+  when:
+    - item['autostart'] is defined
+    - not item['autostart']
+  loop: "{{ kvm_storage_pools }}"
