@@ -16,8 +16,8 @@
       - bridge-utils
       - libvirt-bin
       - lldpd
-      - python-libvirt
-      - python-lxml
+      - python[3]*-libvirt
+      - python[3]*-lxml
       - qemu-kvm
   when: >
     ansible_distribution == "Debian" or
@@ -31,8 +31,8 @@
       - libvirt-daemon-system
       - libvirt-clients
       - lldpd
-      - python-libvirt
-      - python-lxml
+      - python[3]*-libvirt
+      - python[3]*-lxml
       - qemu-kvm
   when:
     - ansible_distribution == "Ubuntu"

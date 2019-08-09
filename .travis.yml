@@ -1,33 +1,31 @@
 ---
+
+dist: bionic
+
 language: python
-python: "2.7"
+python:
+  - 3.6
+services: docker
 
-# Use the new container infrastructure
-sudo: false
-
-# Install ansible
-addons:
-  apt:
-    packages:
-      - python-pip
+env:
+  global:
+    - ROLE_NAME: kvm
+  matrix:
+    - MOLECULE_DISTRO_BOX: generic/ubuntu1804
 
 install:
-  # Install ansible
-  - pip install ansible
+  - sudo add-apt-repository universe && sudo apt update
+  - wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
+  - sudo dpkg -i vagrant_2.1.1_x86_64.deb
+  - sudo apt install qemu-kvm qemu-utils libvirt-bin libvirt0 libvirt-dev
+  - vagrant plugin install vagrant-libvirt
+  - pip install molecule docker python-vagrant paramiko
+  - sudo chmod o+rwx /var/run/libvirt/libvirt-sock
 
-  # Check ansible version
-  - ansible --version
-
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+before_script:
+  - cd ../
+  - mv ansible*$ROLE_NAME $ROLE_NAME
+  - cd $ROLE_NAME
 
 script:
-  # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  # Install role
-  # - ansible-playbook tests/test.yml -i tests/inventory --check
-  # # Check idempotence
-  # - "ansible-playbook tests/test.yml -i tests/inventory | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
-
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  - molecule test

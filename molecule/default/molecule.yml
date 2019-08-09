@@ -1,0 +1,32 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+    type: libvirt
+    driver: kvm
+    options:
+      memory: 2048
+      cpus: 2
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    box: ${MOLECULE_DISTRO_BOX:-""}
+    interfaces:
+      - network_name: public_network
+        dev: "virbr0"
+        type: "bridge"
+        mode: "bridge"
+provisioner:
+  name: ansible
+  log: true
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
