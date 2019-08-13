@@ -19,7 +19,7 @@
 - name: config virtual networks | setting virtual networks to autostart
   become: true
   virt_net:
-    autostart: "{{ item['autostart'] }}"
+    autostart: true
     name: "{{ item['name'] }}"
   when:
     - item['autostart'] is defined
