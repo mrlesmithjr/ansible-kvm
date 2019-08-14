@@ -1,4 +1,5 @@
 ---
+
 - name: config_ssh | configuring ssh to allow root logins
   lineinfile:
     dest: /etc/ssh/sshd_config

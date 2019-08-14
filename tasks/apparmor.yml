@@ -1,4 +1,5 @@
 ---
+
 - name: apparmor | disabling apparmor profiles for libvirt
   file:
     src: "{{ item['src'] }}"
@@ -6,7 +7,7 @@
     state: link
   register: libvirt_apparmor_disabled
   become: true
-  with_items:
+  loop:
     - src: /etc/apparmor.d/usr.sbin.libvirtd
       dest: /etc/apparmor.d/disable/usr.sbin.libvirtd
     - src: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
@@ -15,7 +16,7 @@
 - name: apparmor | disabling apparmor profiles for libvirt
   command: "apparmor_parser -R {{ item }}"
   become: true
-  with_items:
+  loop:
     - /etc/apparmor.d/usr.sbin.libvirtd
     - /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
-  when: libvirt_apparmor_disabled['changed']
+  when: libvirt_apparmor_disabled['changed']    # noqa 503

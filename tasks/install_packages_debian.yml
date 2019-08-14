@@ -1,19 +1,21 @@
 ---
+
 - name: debian | Installing KVM
+  become: true
   apt:
+    update_cache: true
     name: "{{ kvm_debian_packages }}"
     state: present
-  become: true
   register: result
   until: result is successful
 
 - name: debian | Installing Additional Ubuntu Packages
-  apt:
-    name: ["ubuntu-vm-builder"]
-    state: present
   become: true
+  apt:
+    name: "ubuntu-vm-builder"
+    state: present
   register: result
   until: result is successful
-  when: >
-    ansible_distribution == "Ubuntu" and
-    ansible_distribution_version < "18.10"
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version < "18.10"

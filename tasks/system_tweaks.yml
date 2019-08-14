@@ -1,9 +1,9 @@
 ---
 - name: system_tweaks | Setting kvm_sysctl_settings
+  become: true
   sysctl:
     name: "{{ item['name'] }}"
     value: "{{ item['value'] }}"
     state: "{{ item['state'] }}"
-    reload: yes
-  become: true
-  with_items: "{{ kvm_sysctl_settings }}"
+    reload: true
+  loop: "{{ kvm_sysctl_settings }}"
