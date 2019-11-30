@@ -12,6 +12,9 @@ env:
     - ROLE_NAME: kvm
   matrix:
     - MOLECULE_DISTRO_BOX: generic/ubuntu1804
+    - MOLECULE_DISTRO_BOX: debian/buster64
+    - MOLECULE_DISTRO_BOX: debian/stretch64
+    - MOLECULE_DISTRO_BOX: centos/7
 
 install:
   - sudo add-apt-repository universe && sudo apt update
