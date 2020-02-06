@@ -6,4 +6,5 @@
     value: "{{ item['value'] }}"
     state: "{{ item['state'] }}"
     reload: true
+    ignoreerrors: true
   loop: "{{ kvm_sysctl_settings }}"
