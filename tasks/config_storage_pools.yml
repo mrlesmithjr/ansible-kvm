@@ -9,7 +9,7 @@
   register: kvm_pools_defined
   loop: "{{ kvm_storage_pools }}"
 
-- name: config_virtual networks | setting state of storage pools
+- name: config_storage pools | setting state of storage pools
   become: true
   virt_pool:
     name: "{{ item['name'] }}"
