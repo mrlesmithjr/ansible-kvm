@@ -1,5 +1,12 @@
 ---
 
+- name: config_storage pools | ensure storage pool paths exist
+  become: true
+  file:
+    path: "{{ item['path'] }}"
+    state: directory
+  loop: "{{ kvm_storage_pools }}"
+
 - name: config_storage_pools | defining storage pools
   become: true
   virt_pool:
@@ -9,7 +16,7 @@
   register: kvm_pools_defined
   loop: "{{ kvm_storage_pools }}"
 
-- name: config_virtual networks | setting state of storage pools
+- name: config_storage pools | setting state of storage pools
   become: true
   virt_pool:
     name: "{{ item['name'] }}"
