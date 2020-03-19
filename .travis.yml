@@ -22,7 +22,7 @@ install:
   - sudo dpkg -i vagrant_2.1.1_x86_64.deb
   - sudo apt install qemu-kvm qemu-utils libvirt-bin libvirt0 libvirt-dev
   - vagrant plugin install vagrant-libvirt
-  - pip install molecule docker python-vagrant paramiko
+  - pip install molecule==2.22 docker python-vagrant paramiko
   - sudo chmod o+rwx /var/run/libvirt/libvirt-sock
 
 before_script:
