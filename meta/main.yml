@@ -12,8 +12,9 @@ galaxy_info:
         - 7
     - name: Ubuntu
       versions:
-        - bionic
+        - focal
         - cosmic
+        - bionic
         - trusty
         - xenial
         - yakkety
