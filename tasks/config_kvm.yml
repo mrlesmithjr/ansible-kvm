@@ -1,9 +1,8 @@
 ---
-
 - name: config_kvm | Load all groups
   getent:
     database: group
-    split: ':'
+    split: ":"
   check_mode: false
 
 - name: config_kvm | Set unix_sock_group
@@ -33,5 +32,18 @@
   notify: "restart {{ kvm_service_name }}"
   when:
     - kvm_enable_tcp
+    - ansible_os_family == "Debian"
+    - not ansible_check_mode
+
+- name: config_kvm | Configuring Qemu
+  template:
+    src: etc/libvirt/qemu.conf.j2
+    dest: /etc/libvirt/qemu.conf
+    owner: root
+    group: root
+    mode: u=rw,g=,o=
+  become: true
+  notify: "restart {{ kvm_service_name }}"
+  when:
     - ansible_os_family == "Debian"
     - not ansible_check_mode

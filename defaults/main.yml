@@ -151,6 +151,23 @@ kvm_redhat_packages:
   - virt-manager
   - virt-viewer
 
+# The default security driver is SELinux. If SELinux is disabled
+# on the host, then the security driver will automatically disable
+# itself. If you wish to disable QEMU SELinux security driver while
+# leaving SELinux enabled for the host in general, then set this
+# to 'none' instead. It's also possible to use more than one security
+# driver at the same time, for this use a list of names separated by
+# comma and delimited by square brackets. For example:
+#
+#       security_driver = [ "selinux", "apparmor" ]
+#
+# Notes: The DAC security driver is always enabled; as a result, the
+# value of security_driver cannot contain "dac".  The value "none" is
+# a special value; security_driver can be set to that value in
+# isolation, but it cannot appear in a list of drivers.
+#
+kvm_security_driver: none
+
 # I experienced an issue with bridges no longer working on Ubuntu 16.04
 # for some reason. And the following settings below from the link provided
 # solved this issue.
