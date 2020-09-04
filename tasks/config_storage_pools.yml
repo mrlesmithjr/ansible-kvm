@@ -1,8 +1,8 @@
 ---
-
 - name: config_storage pools | ensure storage pool paths exist
   become: true
   file:
+    mode: u=rwx,g=rx,o=rx
     path: "{{ item['path'] }}"
     state: directory
   loop: "{{ kvm_storage_pools }}"
