@@ -140,6 +140,16 @@ kvm_ovs_timeout: 5
 # (notably domainDestroy) can be executed in this pool.
 kvm_prio_workers: 5
 
+kvm_redhat_8_packages:
+  - libvirt-client
+  - libvirt-python3
+  - libvirt
+  - qemu-img
+  - qemu-kvm
+  - virt-install
+  - virt-manager
+  - virt-viewer
+
 kvm_redhat_packages:
   - bridge-utils
   - libvirt-client

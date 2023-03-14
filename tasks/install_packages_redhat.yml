@@ -6,6 +6,27 @@
   become: true
   register: result
   until: result is successful
+  when: >
+    (ansible_distribution == "Fedora" and
+    ansible_distribution_major_version <= '12') or
+    (ansible_distribution == "CentOS" and
+    ansible_distribution_major_version >= '8') or
+    (ansible_distribution == "RedHat" and
+    ansible_distribution_major_version >= '8')
+
+- name: redhat | Installing KVM
+  yum:
+    name: "{{ kvm_redhat_8_packages }}"
+    state: present
+  become: true
+  register: result
+  until: result is successful
+  when: >
+    (ansible_distribution == "CentOS" and
+    ansible_distribution_major_version = '8') or
+    (ansible_distribution == "RedHat" and
+    ansible_distribution_major_version = '8')
+  
 
 - name: redhat | Creating libvirt Group
   group:
