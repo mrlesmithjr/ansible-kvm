@@ -1,5 +1,5 @@
 ---
-- name: redhat | Installing KVM
+- name: redhat under version 8| Installing KVM
   yum:
     name: "{{ kvm_redhat_packages }}"
     state: present
@@ -10,11 +10,11 @@
     (ansible_distribution == "Fedora" and
     ansible_distribution_major_version <= '12') or
     (ansible_distribution == "CentOS" and
-    ansible_distribution_major_version >= '8') or
+    ansible_distribution_major_version > '8') or
     (ansible_distribution == "RedHat" and
-    ansible_distribution_major_version >= '8')
+    ansible_distribution_major_version > '8')
 
-- name: redhat | Installing KVM
+- name: redhat version 8 | Installing KVM
   yum:
     name: "{{ kvm_redhat_8_packages }}"
     state: present
