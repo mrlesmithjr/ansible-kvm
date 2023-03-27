@@ -23,9 +23,9 @@
   until: result is successful
   when: >
     (ansible_distribution == "CentOS" and
-    ansible_distribution_major_version = '8') or
+    ansible_distribution_major_version == '8') or
     (ansible_distribution == "RedHat" and
-    ansible_distribution_major_version = '8')
+    ansible_distribution_major_version == '8')
   
 
 - name: redhat | Creating libvirt Group
