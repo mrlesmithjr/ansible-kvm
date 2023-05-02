@@ -41,6 +41,9 @@
 {% endfor %}
 {% for int in item['network_interfaces'] %}
     <interface type='{{ int['type'] }}'>
+{%   if int['mac'] is defined %}
+      <mac address='{{ int['mac'] }}'/>
+{%   endif %}
 {%   if int['portgroup'] is not defined %}
       <source {{ int['type'] }}='{{ int['source'] }}'/>
 {%   elif int['portgroup'] is defined %}
