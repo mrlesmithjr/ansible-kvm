@@ -2,10 +2,6 @@
 
 An [Ansible](https://www.ansible.com) role to install [KVM](https://www.linux-kvm.org/page/Main_Page)
 
-## Build Status
-
-[![Build Status](https://travis-ci.org/mrlesmithjr/ansible-kvm.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-kvm)
-
 ## Requirements
 
 Install [required](./requirements.yml) [Ansible](https://www.ansible.com) roles:
@@ -78,3 +74,5 @@ Larry Smith Jr.
 - [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
 - [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
 - [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)
+
+<a href="https://www.buymeacoffee.com/mrlesmithjr" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
