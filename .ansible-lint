@@ -8,3 +8,4 @@ skip_list:
 exclude_paths:
   - molecule/
   - tests/
+  - .ansible/  # Exclude vendored dependency roles
