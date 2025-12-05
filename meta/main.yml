@@ -14,14 +14,10 @@ galaxy_info:
         - all
     - name: Ubuntu
       versions:
-        - focal
-        - jammy
-        - noble
+        - all
     - name: Debian
       versions:
-        - buster
-        - bullseye
-        - bookworm
+        - all
 
   galaxy_tags:
     - cloud
