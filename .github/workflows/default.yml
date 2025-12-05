@@ -66,6 +66,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install "${{ matrix.ansible-version }}"
 
+      - name: Install required collections
+        run: |
+          ansible-galaxy collection install -r requirements.yml
+
+      - name: Create role symlink for tests
+        run: |
+          mkdir -p tests/roles
+          ln -s ../../ tests/roles/ansible-kvm
+
       - name: Run ansible-playbook --syntax-check
         run: |
           ansible-playbook tests/test.yml -i tests/inventory --syntax-check
