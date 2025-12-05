@@ -1,7 +1,7 @@
 ---
 - name: config_storage pools | ensure storage pool paths exist
   become: true
-  file:
+  ansible.builtin.file:
     mode: u=rwx,g=rx,o=rx
     path: "{{ item['path'] }}"
     state: directory
@@ -9,7 +9,7 @@
 
 - name: config_storage_pools | defining storage pools
   become: true
-  virt_pool:
+  community.libvirt.virt_pool:
     command: define
     name: "{{ item['name'] }}"
     xml: "{{ lookup('template', 'vm-pool.xml.j2') }}"
@@ -18,14 +18,14 @@
 
 - name: config_storage pools | setting state of storage pools
   become: true
-  virt_pool:
+  community.libvirt.virt_pool:
     name: "{{ item['name'] }}"
     state: "{{ item['state'] }}"
   when: item['state'] is defined
   loop: "{{ kvm_storage_pools }}"
 
 - name: config_storage pools | setting storage pools to autostart
-  virt_pool:
+  community.libvirt.virt_pool:
     autostart: true
     name: "{{ item['name'] }}"
   become: true
@@ -36,7 +36,7 @@
   loop: "{{ kvm_storage_pools }}"
 
 - name: config_storage pools | setting storage pools to not autostart
-  virt_pool:
+  community.libvirt.virt_pool:
     autostart: false
     name: "{{ item['name'] }}"
   become: true

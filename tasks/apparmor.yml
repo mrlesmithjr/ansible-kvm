@@ -1,7 +1,6 @@
 ---
-
 - name: apparmor | disabling apparmor profiles for libvirt
-  file:
+  ansible.builtin.file:
     src: "{{ item['src'] }}"
     dest: "{{ item['dest'] }}"
     state: link
@@ -13,10 +12,11 @@
     - src: /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
       dest: /etc/apparmor.d/disable/usr.lib.libvirt.virt-aa-helper
 
-- name: apparmor | disabling apparmor profiles for libvirt
-  command: "apparmor_parser -R {{ item }}"
+- name: apparmor | reload apparmor profiles
+  ansible.builtin.command: "apparmor_parser -R {{ item }}"
   become: true
   loop:
     - /etc/apparmor.d/usr.sbin.libvirtd
     - /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper
-  when: libvirt_apparmor_disabled['changed']    # noqa 503
+  when: libvirt_apparmor_disabled['changed']
+  changed_when: true

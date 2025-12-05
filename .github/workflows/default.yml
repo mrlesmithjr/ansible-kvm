@@ -1,0 +1,71 @@
+---
+name: CI
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible ansible-lint yamllint
+
+      - name: Run yamllint
+        run: |
+          yamllint .
+
+      - name: Run ansible-lint
+        run: |
+          ansible-lint
+
+  syntax-check:
+    name: Ansible Syntax Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible-version:
+          - "ansible-core>=2.12,<2.13"
+          - "ansible-core>=2.13,<2.14"
+          - "ansible-core>=2.14,<2.15"
+          - "ansible-core>=2.15,<2.16"
+
+    steps:
+      - name: Check out the codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Ansible ${{ matrix.ansible-version }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install "${{ matrix.ansible-version }}"
+
+      - name: Run ansible-playbook --syntax-check
+        run: |
+          ansible-playbook tests/test.yml -i tests/inventory --syntax-check

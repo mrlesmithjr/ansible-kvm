@@ -1,2 +1,10 @@
+---
 skip_list:
-- 106
+  - name[casing]  # Allow flexible task naming
+  - yaml[line-length]  # yamllint handles this
+  - risky-file-permissions  # Many tasks don't need explicit mode
+  - no-handler  # Some service restarts are intentional in tasks
+
+exclude_paths:
+  - molecule/
+  - tests/

@@ -1,6 +1,6 @@
 ---
-- name: redhat under version 8| Installing KVM
-  yum:
+- name: redhat under version 8 | Installing KVM
+  ansible.builtin.dnf:
     name: "{{ kvm_redhat_packages }}"
     state: present
   become: true
@@ -15,7 +15,7 @@
     ansible_distribution_major_version > '8')
 
 - name: redhat version 8 | Installing KVM
-  yum:
+  ansible.builtin.dnf:
     name: "{{ kvm_redhat_8_packages }}"
     state: present
   become: true
@@ -26,10 +26,9 @@
     ansible_distribution_major_version == '8') or
     (ansible_distribution == "RedHat" and
     ansible_distribution_major_version == '8')
-  
 
 - name: redhat | Creating libvirt Group
-  group:
+  ansible.builtin.group:
     name: libvirt
     state: present
   become: true
@@ -42,7 +41,7 @@
     ansible_distribution_major_version <= '6')
 
 - name: redhat | Ensuring libvirtd Service Is Enabled and Started
-  service:
+  ansible.builtin.service:
     name: libvirtd
     enabled: true
     state: started
