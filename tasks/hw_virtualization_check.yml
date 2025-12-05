@@ -1,11 +1,10 @@
 ---
-
 - name: hw_virtualization_check | load cpu info
   become: true
-  slurp:
+  ansible.builtin.slurp:
     src: /proc/cpuinfo
   register: cpu_info
 
 - name: hw_virtualization_check | idenitfy hw virtualization support
-  set_fact:
+  ansible.builtin.set_fact:
     kvm_domain_type: "{{ cpu_info['content'] | b64decode | regex_search('(vmx|svm)', multiline=True) | ternary('kvm', 'qemu') }}"

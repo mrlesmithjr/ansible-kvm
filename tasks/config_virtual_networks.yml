@@ -1,8 +1,7 @@
 ---
-
 - name: config virtual_networks | define virtual networks
   become: true
-  virt_net:
+  community.libvirt.virt_net:
     command: define
     name: "{{ item['name'] }}"
     xml: "{{ lookup('template', 'vm-network.xml.j2') }}"
@@ -10,7 +9,7 @@
 
 - name: config virtual networks | setting state of virtual networks
   become: true
-  virt_net:
+  community.libvirt.virt_net:
     name: "{{ item['name'] }}"
     state: "{{ item['state'] }}"
   when: item['state'] is defined
@@ -18,7 +17,7 @@
 
 - name: config virtual networks | setting virtual networks to autostart
   become: true
-  virt_net:
+  community.libvirt.virt_net:
     autostart: true
     name: "{{ item['name'] }}"
   when:
@@ -29,7 +28,7 @@
 
 - name: config virtual networks | setting virtual networks to not autostart
   become: true
-  virt_net:
+  community.libvirt.virt_net:
     autostart: false
     name: "{{ item['name'] }}"
   when:

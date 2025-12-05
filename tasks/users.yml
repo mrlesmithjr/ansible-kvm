@@ -1,7 +1,6 @@
 ---
-
 - name: users | adding kvm users
-  user:
+  ansible.builtin.user:
     name: "{{ item }}"
     groups: "{{ kvm_unix_sock_group }},kvm"
     append: true

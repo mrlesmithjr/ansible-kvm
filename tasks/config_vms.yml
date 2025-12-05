@@ -1,7 +1,7 @@
 ---
 - name: config_vms | Defining VM(s)
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     command: define
     xml: "{{ lookup('template', 'vm-template.xml.j2') }}"
@@ -10,7 +10,7 @@
 
 - name: config_vms | Defining VM(s)
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     command: define
     xml: "{{ lookup('template', 'vm-template.xml.j2') }}"
@@ -21,7 +21,7 @@
 
 - name: config_vms | Creating VM Disk(s)
   become: true
-  qemu_img:
+  community.general.qemu_img:
     dest: "{{ kvm_images_path }}/{{ item[1]['name'] }}.{{ kvm_images_format_type }}"
     size: "{{ item[1]['size'] }}"
     format: "{{ kvm_images_format_type }}"
@@ -32,7 +32,7 @@
 
 - name: config_vms | Creating VM Disk(s)
   become: true
-  qemu_img:
+  community.general.qemu_img:
     dest: "{{ kvm_images_path }}/{{ item[1]['name'] }}.{{ kvm_images_format_type }}"
     size: "{{ item[1]['size'] }}"
     format: "{{ kvm_images_format_type }}"
@@ -45,7 +45,7 @@
 
 - name: config_vms | Setting VM State
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     state: "{{ item['state'] }}"
   when: item['host'] is not defined
@@ -53,7 +53,7 @@
 
 - name: config_vms | Setting VM State
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     state: "{{ item['state'] }}"
   when:
@@ -63,7 +63,7 @@
 
 - name: config_vms | Setting autostart status
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     autostart: "{{ item['autostart'] | default(omit) }}"
     command: info
@@ -74,7 +74,7 @@
 
 - name: config_vms | Setting autostart status
   become: true
-  virt:
+  community.libvirt.virt:
     name: "{{ item['name'] }}"
     autostart: "{{ item['autostart'] | default(omit) }}"
     command: info

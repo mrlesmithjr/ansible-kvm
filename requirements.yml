@@ -1,2 +1,8 @@
 ---
-- src: https://github.com/mrlesmithjr/ansible-config-interfaces.git
+collections:
+  - name: community.libvirt
+    version: ">=1.0.0"
+  - name: community.general
+    version: ">=3.0.0"
+  - name: ansible.posix
+    version: ">=1.0.0"
