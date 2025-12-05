@@ -16,8 +16,8 @@
   register: result
   until: result is successful
   when:
-  - config_install_lldp | bool
-  - ansible_distribution != "Fedora"
+    - config_install_lldp | bool
+    - ansible_distribution != "Fedora"
 
 - name: redhat | Installing bridge-utils
   yum:
