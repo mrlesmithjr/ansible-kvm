@@ -1,0 +1,29 @@
+---
+name: Ansible Galaxy
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  galaxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Ansible
+        run: pip install ansible-core
+
+      - name: Trigger Galaxy import
+        run: >-
+          ansible-galaxy role import
+          --api-key ${{ secrets.GALAXY_API_KEY }}
+          ${{ github.repository_owner }}
+          ${{ github.event.repository.name }}
