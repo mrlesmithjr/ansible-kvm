@@ -35,6 +35,7 @@ coverage.xml
 
 # Ansible
 *.retry
+.ansible/
 .molecule/
 .cache/
 
